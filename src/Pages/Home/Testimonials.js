@@ -18,7 +18,7 @@ const Testimonials = () => {
 
         {
             _id: 2,
-            name: 'Nikolo Mack',
+            name: 'Nikolo',
             review: 'It is a long established fact that by the readable content of a lot layout. The point of using Lorem a more-or-less normal distribu to using Content here, content',
             location: 'Miami',
             img: people2,
@@ -26,7 +26,7 @@ const Testimonials = () => {
 
         {
             _id: 3,
-            name: 'John Doe',
+            name: 'Jessi',
             review: 'It is a long established fact that by the readable content of a lot layout. The point of using Lorem a more-or-less normal distribu to using Content here, content',
             location: 'Las Vegas',
             img: people3,
