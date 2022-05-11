@@ -10,9 +10,9 @@ const Contact = () => {
                 <h2 className='text-3xl text-white text-center mb-3'>Stay connected with Us</h2>
             </div>
             <div className='flex flex-col content-center flex-wrap'>
-                <input className='mb-2 p-1 rounded' type="text" placeholder="Your Email" class="input input-bordered input-sm w-full max-w-md" />
-                <input className='mb-2 p-1 rounded' type="text" placeholder="Subject" class="input input-bordered input-sm w-full max-w-md" />
-                <textarea class="textarea" placeholder="Message"></textarea>
+                <input type="text" placeholder="Your Email" className="input input-bordered input-sm w-full max-w-md mb-2 p-1 rounded" />
+                <input type="text" placeholder="Subject" className="input input-bordered input-sm w-full max-w-md mb-2 p-1 rounded" />
+                <textarea className="textarea mb-2 p-1 rounded" placeholder="Message"></textarea>
                 <PrimaryButton>Submit</PrimaryButton>
             </div>
         </div>
