@@ -4,6 +4,7 @@ import appointment from '../../assets/images/appointment.png';
 import PrimaryButton from '../Shared/PrimaryButton';
 
 
+
 const MakeAppointment = () => {
     return (
         <section style={{
