@@ -5,8 +5,8 @@ const useAdmin = user => {
     const [adminLoading, setAdminLoading] = useState(true);
     useEffect(() => {
         const email = user?.email;
-        if(email){
-            fetch(`http://localhost:5000/admin/${email}`, {
+        if (email) {
+            fetch(`https://fast-caverns-33581.herokuapp.com/admin/${email}`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -20,7 +20,7 @@ const useAdmin = user => {
                 })
         }
     }, [user])
-    
+
     return [admin, adminLoading]
 }
 
