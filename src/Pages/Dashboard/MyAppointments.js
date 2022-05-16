@@ -1,17 +1,18 @@
-import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
 
-const MyAppointment = () => {
+const MyAppointments = () => {
+
     const [appointments, setAppointments] = useState([]);
-    const [user, loading, error] = useAuthState(auth);
-    const navigate = useNavigate();
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (user) {
-            fetch(`https://fast-caverns-33581.herokuapp.com/booking?patient=${user.email}`, {
+            fetch(`http://localhost:5000/booking?patient=${user.email}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -22,23 +23,22 @@ const MyAppointment = () => {
                     if (res.status === 401 || res.status === 403) {
                         signOut(auth);
                         localStorage.removeItem('accessToken');
-                        navigate('/')
+                        navigate('/');
                     }
-
                     return res.json()
                 })
                 .then(data => {
-                    setAppointments(data)
+
+                    setAppointments(data);
                 });
         }
     }, [user])
+
     return (
         <div>
-            <h2>My appointment: {appointments.length}</h2>
-
+            <h2>My Appointments: {appointments.length}</h2>
             <div class="overflow-x-auto">
                 <table class="table w-full">
-
                     <thead>
                         <tr>
                             <th></th>
@@ -60,12 +60,11 @@ const MyAppointment = () => {
                         }
 
 
-
                     </tbody>
                 </table>
             </div>
-
         </div>
-    )
-}
-export default MyAppointment;
+    );
+};
+
+export default MyAppointments;

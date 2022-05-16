@@ -6,8 +6,8 @@ const Footer = () => {
         <footer style={{
             background: `url(${footer})`,
             backgroundSize: 'cover'
-        }} className="p-10 bg-neutral text-neutral-content">
-            <div className='footer text-black'>
+        }} className="p-10">
+            <div className='footer'>
                 <div>
                     <span className="footer-title">Services</span>
                     <a className="link link-hover">Branding</a>
@@ -29,9 +29,8 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </div>
             </div>
-
             <div className='my-10 text-center'>
-                <p className="text-black">Copyright © 2022 - All right reserved</p>
+                <p>Copyright © 2022 - All right reserved</p>
             </div>
         </footer>
     );

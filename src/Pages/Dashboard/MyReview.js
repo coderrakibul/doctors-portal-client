@@ -3,8 +3,9 @@ import React from 'react';
 const MyReview = () => {
     return (
         <div>
-            <ht className="text-2xl">My Review</ht>
+            <h2>My Review</h2>
         </div>
-    )
-}
+    );
+};
+
 export default MyReview;
