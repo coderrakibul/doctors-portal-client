@@ -7,9 +7,9 @@ import Loading from '../Shared/Loading';
 const AddDoctor = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('https://secret-dusk-46242.herokuapp.com/service').then(res => res.json()))
+    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
 
-    const imageStorageKey='4295ac4d47b569312bea67b440cdbdbb';
+    const imageStorageKey = '4295ac4d47b569312bea67b440cdbdbb';
 
     /**
      * 3 ways to store images
@@ -28,39 +28,39 @@ const AddDoctor = () => {
             method: 'POST',
             body: formData
         })
-        .then(res=>res.json())
-        .then(result =>{
-            if(result.success){
-                const img = result.data.url;
-                const doctor = {
-                    name: data.name,
-                    email: data.email,
-                    specialty: data.specialty,
-                    img: img
-                }
-                // send to your database 
-                fetch('https://secret-dusk-46242.herokuapp.com/doctor', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json',
-                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                    },
-                    body: JSON.stringify(doctor)
-                })
-                .then(res =>res.json())
-                .then(inserted =>{
-                    if(inserted.insertedId){
-                        toast.success('Doctor added successfully')
-                        reset();
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url;
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        specialty: data.specialty,
+                        img: img
                     }
-                    else{
-                        toast.error('Failed to add the doctor');
-                    }
-                })
+                    // send to your database 
+                    fetch('http://localhost:5000/doctor', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(inserted => {
+                            if (inserted.insertedId) {
+                                toast.success('Doctor added successfully')
+                                reset();
+                            }
+                            else {
+                                toast.error('Failed to add the doctor');
+                            }
+                        })
 
-            }
-            
-        })
+                }
+
+            })
     }
 
     if (isLoading) {
