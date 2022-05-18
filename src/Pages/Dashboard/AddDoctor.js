@@ -1,16 +1,24 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { useQuery } from 'react-query';
-import Loading from '../Shared/Loading';
 import { toast } from 'react-toastify';
+import Loading from '../Shared/Loading';
 
 const AddDoctor = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()));
+    const { data: services, isLoading } = useQuery('services', () => fetch('https://secret-dusk-46242.herokuapp.com/service').then(res => res.json()))
 
-    const imageStorageKey = 'ed6ed21d73777f2d384afa4b6a804c07';
+    const imageStorageKey='4295ac4d47b569312bea67b440cdbdbb';
 
+    /**
+     * 3 ways to store images
+     * 1. Third party storage //Free open public storage is ok for Practice project 
+     * 2. Your own storage in your own server (file system)
+     * 3. Database: Mongodb 
+     * 
+     * YUP: to validate file: Search: Yup file validation for react hook form
+    */
     const onSubmit = async data => {
         const image = data.image[0];
         const formData = new FormData();
@@ -20,37 +28,39 @@ const AddDoctor = () => {
             method: 'POST',
             body: formData
         })
-            .then(res => res.json())
-            .then(result => {
-                if (result.success) {
-                    const img = result.data.url;
-                    const doctor = {
-                        name: data.name,
-                        email: data.email,
-                        speciality: data.speciality,
-                        img: img
-                    }
-                    // send to database
-                    fetch('http://localhost:5000/doctor', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json',
-                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                        },
-                        body: JSON.stringify(doctor)
-                    })
-                        .then(res => res.json())
-                        .then(inserted => {
-                            if (inserted.insertedId) {
-                                toast.success('Doctor added Successfully')
-                                reset();
-                            }
-                            else {
-                                toast.error('Failed to add the Doctor');
-                            }
-                        })
+        .then(res=>res.json())
+        .then(result =>{
+            if(result.success){
+                const img = result.data.url;
+                const doctor = {
+                    name: data.name,
+                    email: data.email,
+                    specialty: data.specialty,
+                    img: img
                 }
-            })
+                // send to your database 
+                fetch('https://secret-dusk-46242.herokuapp.com/doctor', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(doctor)
+                })
+                .then(res =>res.json())
+                .then(inserted =>{
+                    if(inserted.insertedId){
+                        toast.success('Doctor added successfully')
+                        reset();
+                    }
+                    else{
+                        toast.error('Failed to add the doctor');
+                    }
+                })
+
+            }
+            
+        })
     }
 
     if (isLoading) {
@@ -59,7 +69,7 @@ const AddDoctor = () => {
 
     return (
         <div>
-            <h2 className='text-2xl'>Add a new Doctor</h2>
+            <h2 className="text-2xl">Add a New Doctor</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="form-control w-full max-w-xs">
@@ -106,12 +116,12 @@ const AddDoctor = () => {
                         {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
                     </label>
                 </div>
+
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">Speciality</span>
+                        <span className="label-text">Specialty</span>
                     </label>
-
-                    <select {...register('speciality')} class="select input-bordered w-full max-w-xs">
+                    <select {...register('specialty')} class="select input-bordered w-full max-w-xs">
                         {
                             services.map(service => <option
                                 key={service._id}

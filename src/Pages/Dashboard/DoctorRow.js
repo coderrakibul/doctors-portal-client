@@ -1,11 +1,9 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DoctorRow = ({ doctor, index, refetch, setdeletingDoctor }) => {
-    const { name, speciality, img, email } = doctor;
-
-
-
+const DoctorRow = ({ doctor, index, refetch, setDeletingDoctor }) => {
+    const { name, specialty, img, email } = doctor;
+    
     return (
         <tr>
             <th>{index + 1}</th>
@@ -15,14 +13,12 @@ const DoctorRow = ({ doctor, index, refetch, setdeletingDoctor }) => {
                 </div>
             </div></td>
             <td>{name}</td>
-            <td>{speciality}</td>
+            <td>{specialty}</td>
             <td>
-                <label onClick={() => setdeletingDoctor(doctor)} for="delete-confirm-modal" class="btn btn-xs btn-error">Delete</label>
-
+                <label onClick={() => setDeletingDoctor(doctor)} for="delete-confirm-modal" class="btn btn-xs btn-error">Delete</label>
             </td>
         </tr>
     );
 };
 
 export default DoctorRow;
-
