@@ -20,10 +20,9 @@ const Users = () => {
                 <table class="table w-full">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Remove a User</th>
                         </tr>
                     </thead>
                     <tbody>

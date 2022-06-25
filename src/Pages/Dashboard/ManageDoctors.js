@@ -27,7 +27,7 @@ const ManageDoctors = () => {
                             <th></th>
                             <th>Avatar</th>
                             <th>Name</th>
-                            <th>Specialty</th>
+                            <th>Speciality</th>
                             <th>Action</th>
                         </tr>
                     </thead>
